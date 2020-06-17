@@ -1,0 +1,32 @@
+--- PARTE 2 ---
+
+* Para criar as migrations:
+    - Criar arquivos das migrations (mostrado na PARTE 1)
+    - Definir os atributos de acordo com a documentação (https://laravel.com/docs/7.x/migrations)
+
+* Para executar as migrations:
+    - php artisan migrate
+    - OBS1: Migrations são executadas em ordem de criação (Ficar atento às chaves estrangeiras que referenciam a chave de uma migration que não foi criada)
+    - OBS2: Migrations geram tabelas no plural do inglês, então fiquem atentos a nomes estranhos caso a migration esteja em português (Ex: migration 'publicacao' gera tabela 'publicacaos')
+    - OBS3: As configurações do arquivo .env devem coincidir com um BD existente
+
+* Relacionamentos no Laravel:
+    - 1:N (Estado:Cidade) -> dentro da model de Estado: 
+        public function cidades() {
+            return $this->hasMany('App\Cidade');
+        }
+    - N:1 (Cidade:Estado) -> dentro da model de Cidade:
+        public function estado() {
+            return $this->belongsTo('App\Estado');
+        }
+
+* Para acessar projeto do GitHub criado por outra pessoa
+    - git clone <URL_DO_PROJETO> (Caso usar XAMPP, executar esse comando dentro da pasta htdocs)
+    - Dentro da pasta do projeto (configurações necessárias por causa do .gitignore)
+        * No cmd -> composer install
+        * copiar e colar .env.example no mesmo lugar, renomeando para .env e alterando os dados necessários
+        * No cmd -> php artisan key:generate
+        * Banco de dados -> caso esteja se utilizando banco de dados local:
+            - Executar script de criação
+                OU
+            - Criar banco de dados vazio e no cmd -> "php artisan migrate"
