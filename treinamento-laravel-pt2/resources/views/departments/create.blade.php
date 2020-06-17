@@ -33,7 +33,7 @@
             <div class="sidebar-header">
                 <a href="/departments"><img src={{asset("images/Logo-Flat-Versao-Clara.png")}} alt="" height="75px"></a>
             </div>
-            <div id="mensagem">Bem vindo, <strong>Anderson</strong></div>
+            <div id="mensagem">Bem vindo, <strong>{{auth()->user()->name}}</strong></div>
             <!-- Links do menu lateral -->
             <ul class="list-unstyled components">
 
