@@ -80,24 +80,23 @@
             </button>
             <h3> Editar departamento </h3>
 
-            <form action="">
+            <form action={{route('departments.update', $department->id)}} method="post">
+                @csrf
+                @method('PUT')
                 <div class="form-group">
                     <div class="form-row">
-                        <input type="hidden" class="form-control" id="inputId" placeholder="2" readonly="false">
                         <div class="form-group col-md-8">
                             <label for="inputNome">Nome:</label>
-                            <input type="name" class="form-control" id="inputNome" placeholder="Marketing">
+                            <input type="name" class="form-control" id="inputNome" placeholder="Nome" name="name" value="{{$department->name}}">
                         </div>
-
                     </div>
                 </div>
-
 
                 <div class="form-group">
                     <div class="form-row">
                         <div class="form-group col-md-8">
                             <label for="descricao">Descrição:</label>
-                            <textarea class="form-control" id="descricao" rows="5" placeholder="O departamento é responsável pela comunicação interna e externa."></textarea>
+                            <textarea class="form-control" id="descricao" rows="5" name="description" placeholder="Descrição">{{$department->description}}</textarea>
                         </div>
                     </div>
                 </div>

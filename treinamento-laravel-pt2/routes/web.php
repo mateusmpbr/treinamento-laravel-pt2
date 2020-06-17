@@ -16,9 +16,11 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => ['auth']], function(){
     Route::get('departments', 'DepartmentController@index')->name('departments.index');
     Route::get('departments/create', 'DepartmentController@create')->name('departments.create');
-    // Route::get('departments/{department}/edit', 'DepartmentController@edit')->name('departments.edit');
-    Route::get('departments/edit', 'DepartmentController@edit')->name('departments.edit');
-    
+    Route::get('departments/{id}/edit', 'DepartmentController@edit')->name('departments.edit');
+    Route::post('departments', 'DepartmentController@store')->name('departments.store');
+    Route::put('departments/{id}', 'DepartmentController@update')->name('departments.update');
+    Route::delete('departments/{id}', 'DepartmentController@destroy')->name('departments.destroy');
+
     Route::get('members', 'MemberController@index')->name('members.index');
     Route::get('members/create', 'MemberController@create')->name('members.create');
     // Route::get('members/{department}/edit', 'MemberController@edit')->name('members.edit');

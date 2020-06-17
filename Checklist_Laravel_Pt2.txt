@@ -20,6 +20,10 @@
             return $this->belongsTo('App\Estado');
         }
 
+* Caso queira utilizar "$request->all()" deve-se definir os atributos na variável $fillable
+    - Exemplo:
+        * Para utilizar no DepartmentController "Department::create($request->all());", deve-se definir no modelo Department "protected $fillable = ['name', 'description'];"
+
 * Para acessar projeto do GitHub criado por outra pessoa
     - git clone <URL_DO_PROJETO> (Caso usar XAMPP, executar esse comando dentro da pasta htdocs)
     - Dentro da pasta do projeto (configurações necessárias por causa do .gitignore)

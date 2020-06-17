@@ -82,12 +82,13 @@
             </button>
             <h3> Cadastro de departamentos </h3>
 
-            <form action="#" method="get">
+            <form action="/departments" method="post">
+                @csrf
                 <div class="form-group">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputNome">Nome</label>
-                            <input type="nome" class="form-control" name="nome" id="inputNome" placeholder="Nome" required>
+                            <input type="text" class="form-control" name="name" id="inputNome" placeholder="Nome" required>
                         </div>
                     </div>
                 </div>
@@ -97,7 +98,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="descricao">Descrição</label>
-                            <textarea class="form-control" id="descricao" name="descricao" rows="5" placeholder="Descrição" required></textarea>
+                            <textarea class="form-control" id="descricao" name="description" rows="5" placeholder="Descrição" required></textarea>
                         </div>
                     </div>
                 </div>

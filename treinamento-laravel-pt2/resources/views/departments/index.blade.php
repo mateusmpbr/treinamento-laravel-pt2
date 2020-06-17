@@ -98,39 +98,18 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Presidência</td>
-                                    <td>O departamento é responsável por gerir uma <br>empresa júnior.</td>
-                                    <td>
-                                        <a href="/departments/edit">
-                                            <button type="button" class="btn btn-success btn-sm">Editar</button>
-                                        </a>
-                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalExcluir">Excluir</button>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>Marketing</td>
-                                    <td>O departamento éesponsável pela <br>comunicação interna e<br> externa.</td>
-                                    <td>
-                                        <a href="/departments/edit">
-                                            <button type="button" class="btn btn-success btn-sm">Editar</button>
-                                        </a>
-                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalExcluir">Excluir</button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Gestão de Pessoas</td>
-                                    <td>O departamento é responsável por promover<br> treinamentos, eventos<br> e resolver conflitos internos</td>
-                                    <td>
-                                        <a href="/departments/edit">
-                                            <button type="button" class="btn btn-success btn-sm" disabled>Editar</button>
-                                        </a>
-
-                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalExcluir" disabled>Excluir</button>
-
-                                    </td>
-                                </tr>
+                                @foreach ($departments as $department)
+                                    <tr>
+                                        <td>{{$department->name}}</td>
+                                        <td>{{$department->description}}</td>
+                                        <td>
+                                            <a href={{ route("departments.edit", $department->id)}}>
+                                                <button type="button" class="btn btn-success btn-sm">Editar</button>
+                                            </a>
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalExcluir" onclick="deleteData({{$department->id}})">Excluir</button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
 
@@ -159,7 +138,11 @@
                     Tem certeza que deseja excluir este departamento ?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Sim</button>
+                    <form action='' id='deleteForm' method='post'>
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-light" data-dismiss="modal" onclick="formSubmit()">Sim</button>
+                    </form>
                     <button type="button" class="btn btn-dark" data-dismiss="modal">Não</button>
                 </div>
             </div>
@@ -173,8 +156,8 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Sair do sistema</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     Tem certeza que deseja sair do sistema ?
@@ -211,6 +194,19 @@
             event.preventDefault();
             document.getElementById('logout-form').submit();
         }
+
+        function deleteData(id)
+     {
+         var id = id;
+         var url = '{{ route("departments.destroy", ":id") }}';
+         url = url.replace(':id', id);
+         $("#deleteForm").attr('action', url);
+     }
+
+     function formSubmit()
+     {
+         $("#deleteForm").submit();
+     }
     </script>
 </body>
 
