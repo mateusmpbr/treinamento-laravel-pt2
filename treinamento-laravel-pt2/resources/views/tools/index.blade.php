@@ -105,70 +105,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>HTML</td>
-                                <td>
-                                    <a href="/tools/edit">
-                                        <button type="button" class="btn btn-success btn-sm">Editar</button>
-                                    </a>
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalExcluir">Excluir</button>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td>CSS</td>
-                                <td>
-                                    <a href="/tools/edit">
-                                        <button type="button" class="btn btn-success btn-sm">Editar</button>
-                                    </a>
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalExcluir">Excluir</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>JavaScript</td>
-                                <td>
-                                    <a href="/tools/edit">
-                                        <button type="button" class="btn btn-success btn-sm">Editar</button>
-                                    </a>
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalExcluir">Excluir</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>PHP</td>
-                                <td>
-                                    <a href="/tools/edit">
-                                        <button type="button" class="btn btn-success btn-sm">Editar</button>
-                                    </a>
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalExcluir">Excluir</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Laravel</td>
-                                <td>
-                                    <a href="/tools/edit">
-                                        <button type="button" class="btn btn-success btn-sm">Editar</button>
-                                    </a>
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalExcluir">Excluir</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Node JS</td>
-                                <td>
-                                    <a href="/tools/edit">
-                                        <button type="button" class="btn btn-success btn-sm">Editar</button>
-                                    </a>
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalExcluir">Excluir</button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>React JS</td>
-                                <td>
-                                    <a href="/tools/edit">
-                                        <button type="button" class="btn btn-success btn-sm">Editar</button>
-                                    </a>
-                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalExcluir">Excluir</button>
-                                </td>
-                            </tr>
+                            @foreach ($tools as $tool)
+                                <tr>
+                                    <td>{{$tool->name}}</td>
+                                    <td>
+                                        <a href={{route('tools.edit', $tool->id)}}>
+                                            <button type="button" class="btn btn-success btn-sm">Editar</button>
+                                        </a>
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalExcluir" onclick="deleteData({{$tool->id}})">Excluir</button>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -196,7 +143,11 @@
                     Tem certeza que deseja excluir esta ferramenta ?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Sim</button>
+                    <form action='' id='deleteForm' method='post'>
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-light">Sim</button>
+                    </form>
                     <button type="button" class="btn btn-dark" data-dismiss="modal">Não</button>
                 </div>
             </div>
@@ -248,6 +199,13 @@
         function sair() {
             event.preventDefault();
             document.getElementById('logout-form').submit();
+        }
+
+        function deleteData(id) {
+            var id = id;
+            var url = '{{ route("tools.destroy", ":id") }}';
+            url = url.replace(':id', id);
+            $("#deleteForm").attr('action', url);
         }
     </script>
 </body>

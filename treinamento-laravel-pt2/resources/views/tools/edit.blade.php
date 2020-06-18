@@ -82,12 +82,14 @@
             </button>
             <h3> Editar Ferramenta </h3>
 
-            <form action="#">
+            <form action={{route('tools.update', $tool->id)}} method="post">
+                @csrf
+                @method('put')
                 <div class="form-group">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputNome">Ferramenta</label>
-                            <input type="nome" class="form-control" id="inputNome" placeholder="HTML">
+                            <input type="text" class="form-control" name="name" id="inputNome" placeholder="Nome" value={{$tool->name}}>
                         </div>
                     </div>
                 </div>

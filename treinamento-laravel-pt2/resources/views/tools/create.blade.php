@@ -82,12 +82,13 @@
             </button>
             <h3> Cadastro de ferramentas</h3>
 
-            <form action="#" method="get">
+            <form action={{route('tools.store')}} method="post">
+                @csrf
                 <div class="form-group">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputNome">Ferramenta</label>
-                            <input type="nome" class="form-control" name="nome" id="inputNome" placeholder="Nome" required>
+                            <input type="text" class="form-control" name="name" id="inputNome" placeholder="Nome" required>
                         </div>
                     </div>
                 </div>

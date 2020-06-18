@@ -23,13 +23,17 @@ Route::group(['middleware' => ['auth']], function(){
 
     Route::get('members', 'MemberController@index')->name('members.index');
     Route::get('members/create', 'MemberController@create')->name('members.create');
-    // Route::get('members/{department}/edit', 'MemberController@edit')->name('members.edit');
-    Route::get('members/edit', 'MemberController@edit')->name('members.edit');
+    Route::get('members/{id}/edit', 'MemberController@edit')->name('members.edit');
+    Route::post('members', 'MemberController@store')->name('members.store');
+    Route::put('members/{id}', 'MemberController@update')->name('members.update');
+    Route::delete('members/{id}', 'MemberController@destroy')->name('members.destroy');
     
     Route::get('tools', 'ToolController@index')->name('tools.index');
     Route::get('tools/create', 'ToolController@create')->name('tools.create');
-    // Route::get('tools/{department}/edit', 'ToolController@edit')->name('tools.edit');
-    Route::get('tools/edit', 'ToolController@edit')->name('tools.edit');
+    Route::get('tools/{id}/edit', 'ToolController@edit')->name('tools.edit');
+    Route::post('tools', 'ToolController@store')->name('tools.store');
+    Route::put('tools/{id}', 'ToolController@update')->name('tools.update');
+    Route::delete('tools/{id}', 'ToolController@destroy')->name('tools.destroy');
 });
 
 Route::get('/', function () {

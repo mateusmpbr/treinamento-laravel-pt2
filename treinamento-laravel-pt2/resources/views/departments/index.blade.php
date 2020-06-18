@@ -141,7 +141,7 @@
                     <form action='' id='deleteForm' method='post'>
                         @csrf
                         @method('delete')
-                        <button type="submit" class="btn btn-light" data-dismiss="modal" onclick="formSubmit()">Sim</button>
+                        <button type="submit" class="btn btn-light">Sim</button>
                     </form>
                     <button type="button" class="btn btn-dark" data-dismiss="modal">Não</button>
                 </div>
@@ -195,18 +195,12 @@
             document.getElementById('logout-form').submit();
         }
 
-        function deleteData(id)
-     {
-         var id = id;
-         var url = '{{ route("departments.destroy", ":id") }}';
-         url = url.replace(':id', id);
-         $("#deleteForm").attr('action', url);
-     }
-
-     function formSubmit()
-     {
-         $("#deleteForm").submit();
-     }
+        function deleteData(id) {
+            var id = id;
+            var url = '{{ route("departments.destroy", ":id") }}';
+            url = url.replace(':id', id);
+            $("#deleteForm").attr('action', url);
+        }
     </script>
 </body>
 
