@@ -79,100 +79,81 @@
             </button>
             <h3> Editar membros </h3>
 
-            <form action="">
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="inputNome">Nome</label>
-                        <input type="nome" class="form-control" id="inputNome" placeholder="Anderson Fernandes">
-                    </div>
-                </div>
+            <form action={{route('members.update', $member->id)}} method="post" enctype="multipart/form-data">
+                @csrf
+                @method('put')
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputAddress">Status</label>
-                        <select class="form-control" id="cargo">
-                            <option selected>Ativo</option>
-                            <option>Afastado</option>
-                            <option>Desligado</option>
-                            <option>Pós-Júnior</option>
-                            
+                        <label for="inputNome">Nome</label>
+                        <input value="{{$member->name}}" name="name" type="text" class="form-control" id="inputNome" placeholder="Nome" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputCargo">Cargo</label>
+                        <input value="{{$member->role}}" name="role" type="text" class="form-control" id="inputCargo" placeholder="Cargo" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Status</label>
+                        <select name="status" class="form-control" id="status">
+                            <option value="Ativo" {{$member->status == "Ativo" ? "selected" : ""}}>Ativo</option>
+                            <option value="Afastado" {{$member->status == "Afastado" ? "selected" : ""}}>Afastado</option>
+                            <option value="Desligado" {{$member->status == "Desligado" ? "selected" : ""}}>Desligado</option>
+                            <option value="Pós-Júnior" {{$member->status == "Pós-Júnior" ? "selected" : ""}}>Pós-Júnior</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="departamento">Departamento</label>
-                        <select class="form-control" id="departamento">
-                            <option>Presidência</option>
-                            <option>Vice-presidência</option>
-                            <option>Projetos</option>
-                            <option>Qualidade</option>
-                            <option selected>Marketing</option>
-                            <option>Gestão de Pessoas</option>
-                            </select>
+                        <label for="department_id">Departamento</label>
+                        <select name="department_id" class="form-control" id="department_id">
+                            @foreach ($departments as $department)
+                                <option value={{$department->id}}
+                                    {{$member->department_id == $department->id ? "selected" : "" }}
+                                >
+                                    {{$department->name}}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
-
-
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputEmail">E-mail</label>
-                        <input type="text" class="form-control" id="inputEmail" placeholder="andersonfernandes@visaojr.com.br">
+                        <input value="{{$member->email}}" name="email" type="email" class="form-control" id="inputEmail" placeholder="E-mail" required>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputTelefone">Telefone:</label>
-                        <input type="text" class="form-control" id="inputEmail" placeholder="(41) 436736363">
+                        <label for="inputTelefone">Telefone (apenas números)</label>
+                        <input value="{{$member->phone}}" name="phone" type="number" class="form-control" id="inputTelefone" placeholder="Telefone">
                     </div>
                 </div>
 
                 <label for="tools">Ferramentas utilizadas:</label>
                 <div class="form-check">
                     <div class="form-row">
-                        <div class="form-group col-md-2">
-                            <input type="checkbox" class="form-check-input" id="check1" checked>
-                            <label class="form-check-label" for="check1">HTML</label>
-                        </div>
-
-                        <div class="form-group col-md-2">
-                            <input type="checkbox" class="form-check-input" id="check1" checked>
-                            <label class="form-check-label" for="check1">CSS</label>
-                        </div>
-
-                        <div class="form-group col-md-2">
-                            <input type="checkbox" class="form-check-input" id="check1" checked>
-                            <label class="form-check-label" for="check1">JavaScript</label>
-                        </div>
-
-                        <div class="form-group col-md-2">
-                            <input type="checkbox" class="form-check-input" id="check1" checked>
-                            <label class="form-check-label" for="check1">PHP</label>
-                        </div>
-
-                        <div class="form-group col-md-2">
-                            <input type="checkbox" class="form-check-input" id="check1" checked>
-                            <label class="form-check-label" for="check1">Laravel</label>
-                        </div>
-
-                        <div class="form-group col-md-2">
-                            <input type="checkbox" class="form-check-input" id="check1">
-                            <label class="form-check-label" for="check1">Node JS</label>
-                        </div>
-
-                        <div class="form-group col-md-2">
-                            <input type="checkbox" class="form-check-input" id="check1">
-                            <label class="form-check-label" for="check1">React JS</label>
-                        </div>
-
-
+                        @foreach ($tools as $tool)
+                            <div class="form-group col-md-2">
+                                <input
+                                    @foreach ($member->tools as $checked_tool)
+                                        {{ $tool->id == $checked_tool->id ? "checked" : "" }}
+                                    @endforeach
+                                    type="checkbox" 
+                                    class="form-check-input"
+                                    id={{$tool->id}}
+                                    value={{$tool->id}}
+                                    name="tools[]"
+                                >
+                                <label class="form-check-label" for={{$tool->id}}>{{$tool->name}}</label>
+                            </div>
+                        @endforeach
                     </div>
-
-
                 </div>
-                <label for="myFile">Selecione uma foto</label><br>
-                <input type="file" id="myFile" name="myFile" accept="image/*"><br><br>
 
-                <button type="submit" class="btn btn-dark" onclick="confirmacao()">Salvar</button>
+                <label for="myFile">Selecione uma foto</label><br>
+                <input type="file" id="myFile" name="photo" accept="image/*"><br><br>
+
+                <input type="submit" value="Salvar" class="btn btn-dark" onclick="confirmacao()">
             </form>
         </div>
-        </nav>
-    </div>
     </div>
 
     <!-- Modal -->

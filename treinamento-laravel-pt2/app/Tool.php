@@ -9,7 +9,7 @@ class Tool extends Model
 
     protected $fillable = ['name'];
 
-    public function has_members() {
-        return $this->hasMany('App\MemberHasTools');
+    public function members() {
+        return $this->belongsToMany('App\Member', 'members_has_tools', 'tools_id', 'members_id');
     }
 }

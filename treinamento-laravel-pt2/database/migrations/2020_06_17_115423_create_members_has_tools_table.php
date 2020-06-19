@@ -19,8 +19,16 @@ class CreateMembersHasToolsTable extends Migration
             $table->bigInteger('tools_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('members_id')->references('id')->on('members');
-            $table->foreign('tools_id')->references('id')->on('tools');
+            $table->foreign('members_id')
+                    ->references('id')
+                    ->on('members')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
+            $table->foreign('tools_id')
+                    ->references('id')
+                    ->on('tools')
+                    ->onDelete('cascade')
+                    ->onUpdate('cascade');
         });
     }
 

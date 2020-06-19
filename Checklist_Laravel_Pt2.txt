@@ -24,6 +24,9 @@
     - Exemplo:
         * Para utilizar no DepartmentController "Department::create($request->all());", deve-se definir no modelo Department "protected $fillable = ['name', 'description'];"
 
+* Para criar link simbólico de "public/storage" para "storage/app/public":
+    - No terminal: php artisan storage:link
+
 * Para acessar projeto do GitHub criado por outra pessoa
     - git clone <URL_DO_PROJETO>
     - Dentro da pasta do projeto (configurações necessárias por causa do .gitignore)

@@ -92,32 +92,39 @@
                         </a>
                         <p class="classificar">Classificar por</p>
                         <table class="table" id="table" width="80%">
-                            <div class="form-row">
-                                <div class="form-group col-md-3">
-                                    <label for="Status" id="LabelStatus">Status</label>
-                                    <select class="form-control" id="InputStatus">
-                                        <option>Ativo</option>
-                                        <option>Afastado</option>
-                                        <option>Desligado</option>
-                                        <option>Pós-Júnior</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="departamento" id="LabelDepartamento">Departamento</label>
-                                    <select class="form-control" id="InputDepartamento">
-                                        <option>Presidência</option>
-                                        <option>Vice-presidência</option>
-                                        <option>Projetos</option>
-                                        <option>Qualidade</option>
-                                        <option>Marketing</option>
-                                        <option>Gestão de Pessoas</option>
+                            <form action="">
+                                <div class="form-row">
+                                    <div class="form-group col-md-3">
+                                        <label for="Status" id="LabelStatus">Status</label>
+                                        <select class="form-control" id="InputStatus">
+                                            <option>Ativo</option>
+                                            <option>Afastado</option>
+                                            <option>Desligado</option>
+                                            <option>Pós-Júnior</option>
                                         </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label for="departamento" id="LabelDepartamento">Departamento</label>
+                                        <select class="form-control" id="InputDepartamento">
+                                            <option>Presidência</option>
+                                            <option>Vice-presidência</option>
+                                            <option>Projetos</option>
+                                            <option>Qualidade</option>
+                                            <option>Marketing</option>
+                                            <option>Gestão de Pessoas</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <button type="button" class="btn btn-dark ml-5 BotaoFiltrar">Filtrar</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
                             <thead>
                                 <tr>
                                     <th scope="col" id="col1">Nome</th>
+                                    <th scope="col">Foto</th>
                                     <th scope="col" id="col2">Status</th>
+                                    <th scope="col">Cargo</th>
                                     <th scope="col" id="col3">Telefone</th>
                                     <th scope="col" id="col4">E-mail</th>
                                     <th scope="col" id="col5">Departamento</th>
@@ -126,62 +133,34 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Gabriel</td>
-                                    <td>Ativo</td>
-                                    <td>3433727</td>
-                                    <td>gabriel@visao.com.br</td>
-                                    <td>Projetos</td>
-                                    <td>HTML, CSS, PHP</td>
-                                    <td>
-                                        <a href="/members/edit">
-                                            <button type="button" class="btn btn-success btn-sm">Editar</button>
-                                        </a>
-                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalExcluir">Excluir</button>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>Henrique</td>
-                                    <td>Ativo</td>
-                                    <td>3433727</td>
-                                    <td>henrique@visao.com.br</td>
-                                    <td>Presidência</td>
-                                    <td>React, Node</td>
-                                    <td>
-                                        <a href="/members/edit">
-                                            <button type="button" class="btn btn-success btn-sm">Editar</button>
-                                        </a>
-                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalExcluir">Excluir</button>
-
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Anderson</td>
-                                    <td>Ativo</td>
-                                    <td>3433727</td>
-                                    <td>anderson@visao.com.br</td>
-                                    <td>Marketing</td>
-                                    <td>JavaScript, PHP</td>
-                                    <td>
-                                        <a href="/members/edit">
-                                            <button type="button" class="btn btn-success btn-sm">Editar</button>
-                                        </a>
-                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalExcluir">Excluir</button>
-                                    </td>
-                                </tr>
+                                @foreach ($members as $member)
+                                    <tr>
+                                        <td>{{$member->name}}</td>
+                                        <td><img src={{asset('storage/'.$member->photo)}} alt="Foto de membro" width="65" height="65"></td>
+                                        <td>{{$member->status}}</td>
+                                        <td>{{$member->role}}</td>
+                                        <td>{{$member->phone ?? "N/A"}}</td>
+                                        <td>{{$member->email}}</td>
+                                        <td>{{$member->department->name}}</td>
+                                        <td>
+                                            @foreach ($member->tools as $tool)
+                                                [{{$tool->name}}]
+                                            @endforeach
+                                        </td>
+                                        <td>
+                                            <a href={{route('members.edit', $member->id)}}>
+                                                <button type="button" class="btn btn-success btn-sm">Editar</button>
+                                            </a>
+                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalExcluir" onclick="deleteData({{$tool->id}})">Excluir</button>
+                                        </td>
+                                    </tr>
+                                    @endforeach
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
-
-
-
         </div>
-
-
-
     </div>
 
     <!-- Modal Excluir -->
@@ -191,14 +170,18 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Excluir Membro</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <div class="modal-body">
                     Tem certeza que deseja excluir este membro ?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-dismiss="modal">Sim</button>
+                    <form action='' id='deleteForm' method='post'>
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-light">Sim</button>
+                    </form>
                     <button type="button" class="btn btn-dark" data-dismiss="modal">Não</button>
                 </div>
             </div>
@@ -251,6 +234,13 @@
         function sair() {
             event.preventDefault();
             document.getElementById('logout-form').submit();
+        }
+
+        function deleteData(id) {
+            var id = id;
+            var url = '{{ route("members.destroy", ":id") }}';
+            url = url.replace(':id', id);
+            $("#deleteForm").attr('action', url);
         }
     </script>
 </body>

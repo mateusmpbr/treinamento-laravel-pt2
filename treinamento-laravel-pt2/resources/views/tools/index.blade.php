@@ -72,18 +72,12 @@
             </ul>
         </nav>
 
-
-
-
         <div id="content">
             <button type="button" id="sidebarCollapse" class="navbar-btn">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
-
-
-
 
             <!-- Grid 1: Membros -->
             <div class="row">
@@ -93,10 +87,7 @@
                         <a href="/tools/create">
                             <button type="button" id="novoMembro" class="btn btn-dark">+ Nova ferramenta</button>
                         </a>
-
                     </div>
-
-
                     <table class="table" id="table-ferramentas">
                         <thead>
                             <tr>
@@ -119,13 +110,8 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
-
         </div>
-
-
-
     </div>
 
 

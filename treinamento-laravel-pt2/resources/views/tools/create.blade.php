@@ -95,8 +95,6 @@
                 <input type="submit" class="btn btn-dark" value="Salvar" onclick="confirmacao()">
             </form>
         </div>
-        </nav>
-    </div>
     </div>
 
     <!-- Modal -->

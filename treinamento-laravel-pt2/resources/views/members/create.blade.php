@@ -39,7 +39,6 @@
 <body>
 
     <div class="wrapper">
-
         <nav id="sidebar">
             <!-- Cabeçalho do menu lateral -->
             <div class="sidebar-header">
@@ -82,8 +81,6 @@
             </ul>
         </nav>
 
-
-
         <div id="content">
             <button type="button" id="sidebarCollapse" class="navbar-btn">
                 <span></span>
@@ -92,101 +89,68 @@
             </button>
             <h3> Cadastro de membros </h3>
 
-            <form accept="#" method="post">
-                <div class="form-row">
-                    <div class="form-group col-md-12">
-                        <label for="inputNome">Nome</label>
-                        <input name="nome" type="nome" class="form-control" id="nome" placeholder="Nome" required>
-                    </div>
-                </div>
+            <form action={{route('members.store')}} method="post" enctype="multipart/form-data">
+                @csrf
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputStatus" id="status">Status</label>
-                        <select name="cargo" class="form-control" id="cargo">
-                            <option value="1">Ativo</option>
-                            <option value="2">Afastado</option>
-                            <option value="3">Desligado</option>
-                            <option value="4">Pós-Júnior</option>
-                            
+                        <label for="inputNome">Nome</label>
+                        <input name="name" type="text" class="form-control" id="inputNome" placeholder="Nome" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputCargo">Cargo</label>
+                        <input name="role" type="text" class="form-control" id="inputCargo" placeholder="Cargo" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Status</label>
+                        <select name="status" class="form-control" id="status">
+                            <option value="Ativo">Ativo</option>
+                            <option value="Afastado">Afastado</option>
+                            <option value="Desligado">Desligado</option>
+                            <option value="Pós-Júnior">Pós-Júnior</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="departamento" id="departamento">Departamento</label>
-                        <select name="departamento" class="form-control" id="departamento">
-                            <option value="1">Presidência</option>
-                            <option value="2">Vice-presidência</option>
-                            <option value="3">Projetos</option>
-                            <option value="4">Qualidade</option>
-                            <option value="5">Marketing</option>
-                            <option value="6">Gestão de Pessoas</option>
-                            </select>
+                        <label for="department_id">Departamento</label>
+                        <select name="department_id" class="form-control" id="department_id">
+                            @foreach ($departments as $department)
+                                <option value={{$department->id}}>{{$department->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
-
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="inputEmail">E-mail</label>
-                        <input name="email" type="email" class="form-control" id="email" placeholder="E-mail" required>
+                        <input name="email" type="email" class="form-control" id="inputEmail" placeholder="E-mail" required>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputTelefone">Telefone (Apenas números)</label>
-                        <input name="telefone" type="text" class="form-control" id="telefone" placeholder="Telefone" required>
+                        <label for="inputTelefone">Telefone (apenas números)</label>
+                        <input name="phone" type="number" class="form-control" id="inputTelefone" placeholder="Telefone">
                     </div>
                 </div>
-
 
                 <label for="tools">Ferramentas utilizadas:</label>
                 <div class="form-check">
                     <div class="form-row">
-                        <div class="form-group col-md-2">
-                            <input type="checkbox" class="form-check-input" id="check1" name="check1">
-                            <label class="form-check-label" for="check1">HTML</label>
-                        </div>
-
-                        <div class="form-group col-md-2">
-                            <input type="checkbox" class="form-check-input" id="check2" name="check2">
-                            <label class="form-check-label" for="check2">CSS</label>
-                        </div>
-
-                        <div class="form-group col-md-2">
-                            <input type="checkbox" class="form-check-input" id="check3" name="check3">
-                            <label class="form-check-label" for="check3">JavaScript</label>
-                        </div>
-
-                        <div class="form-group col-md-2">
-                            <input type="checkbox" class="form-check-input" id="check4" name="check4">
-                            <label class="form-check-label" for="check4">PHP</label>
-                        </div>
-
-                        <div class="form-group col-md-2">
-                            <input type="checkbox" class="form-check-input" id="check5" name="check5">
-                            <label class="form-check-label" for="check5">Laravel</label>
-                        </div>
-
-                        <div class="form-group col-md-2">
-                            <input type="checkbox" class="form-check-input" id="check6" name="check6">
-                            <label class="form-check-label" for="check6">Node JS</label>
-                        </div>
-
-                        <div class="form-group col-md-2">
-                            <input type="checkbox" class="form-check-input" id="check7" name="check7">
-                            <label class="form-check-label" for="check7">React JS</label>
-                        </div>
-
-
+                        @foreach ($tools as $tool)
+                            <div class="form-group col-md-2">
+                                <input type="checkbox" class="form-check-input" id={{$tool->id}} value={{$tool->id}} name="tools[]">
+                                <label class="form-check-label" for={{$tool->id}}>{{$tool->name}}</label>
+                            </div>
+                        @endforeach
                     </div>
-
-
                 </div>
+
                 <label for="myFile">Selecione uma foto</label><br>
-                <input type="file" id="imagem" name="imagem" accept="image/*"><br><br>
+                <input type="file" id="myFile" name="photo" accept="image/*"><br><br>
 
                 <input type="submit" value="Salvar" class="btn btn-dark" onclick="confirmacao()">
             </form>
         </div>
-        </nav>
-    </div>
     </div>
 
     <!-- Modal -->

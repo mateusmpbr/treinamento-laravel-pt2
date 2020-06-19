@@ -1,0 +1,1 @@
+Colocar on delete cascade e on update cascade
