@@ -12,8 +12,9 @@ use Illuminate\Support\Facades\Storage;
 class MemberController extends Controller
 {
     public function index(){
+        $departments = Department::all();
         $members = Member::all();
-        return view('members.index', compact('members'));
+        return view('members.index', compact('members', 'departments'));
     }
 
     public function create(){
@@ -110,5 +111,13 @@ class MemberController extends Controller
         Storage::disk('public')->delete($member->photo);
         $member->delete();
         return redirect('/members');
+    }
+
+    public function filter(Request $request){
+        $members = Member::where('status', $request->status)
+                            ->where('department_id', $request->department_id)
+                            ->get();
+        $departments = Department::all();
+        return view('members.index', compact('members', 'departments'));
     }
 }

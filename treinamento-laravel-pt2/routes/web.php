@@ -27,7 +27,8 @@ Route::group(['middleware' => ['auth']], function(){
     Route::post('members', 'MemberController@store')->name('members.store');
     Route::put('members/{id}', 'MemberController@update')->name('members.update');
     Route::delete('members/{id}', 'MemberController@destroy')->name('members.destroy');
-    
+    Route::post('members/filter', 'MemberController@filter')->name('members.filter');
+
     Route::get('tools', 'ToolController@index')->name('tools.index');
     Route::get('tools/create', 'ToolController@create')->name('tools.create');
     Route::get('tools/{id}/edit', 'ToolController@edit')->name('tools.edit');

@@ -92,30 +92,28 @@
                         </a>
                         <p class="classificar">Classificar por</p>
                         <table class="table" id="table" width="80%">
-                            <form action="">
+                            <form action="{{route('members.filter')}}" method="post">
+                                @csrf
                                 <div class="form-row">
                                     <div class="form-group col-md-3">
-                                        <label for="Status" id="LabelStatus">Status</label>
-                                        <select class="form-control" id="InputStatus">
-                                            <option>Ativo</option>
-                                            <option>Afastado</option>
-                                            <option>Desligado</option>
-                                            <option>Pós-Júnior</option>
+                                        <label for="InputStatus" id="LabelStatus">Status</label>
+                                        <select name="status" class="form-control" id="InputStatus">
+                                            <option value="Ativo">Ativo</option>
+                                            <option value="Afastado">Afastado</option>
+                                            <option value="Desligado">Desligado</option>
+                                            <option value="Pós-Júnior">Pós-Júnior</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <label for="departamento" id="LabelDepartamento">Departamento</label>
-                                        <select class="form-control" id="InputDepartamento">
-                                            <option>Presidência</option>
-                                            <option>Vice-presidência</option>
-                                            <option>Projetos</option>
-                                            <option>Qualidade</option>
-                                            <option>Marketing</option>
-                                            <option>Gestão de Pessoas</option>
+                                        <label for="InputDepartamento" id="LabelDepartamento">Departamento</label>
+                                        <select name="department_id" class="form-control" id="InputDepartamento">
+                                            @foreach ($departments as $department)
+                                                <option value={{$department->id}}>{{$department->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="form-group col-md-3">
-                                        <button type="button" class="btn btn-dark ml-5 BotaoFiltrar">Filtrar</button>
+                                        <button type="submit" class="btn btn-dark ml-5 BotaoFiltrar">Filtrar</button>
                                     </div>
                                 </div>
                             </form>
