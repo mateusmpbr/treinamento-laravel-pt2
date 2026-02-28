@@ -2,7 +2,7 @@ Treinamento oferecido à Visão Tecnologia e Sistemas.
 
 O arquivo "Checklist_Laravel_Pt2.txt" contém comandos úteis para o desenvolvimento em Laravel.
 
-A grande maior parte das dúvidas podem ser sanadas a partir das seguintes URL's:
+A grande maior parte das dúvidas podem ser sanadas a partir das seguintes URLs:
 
 * [Documentação do Laravel](https://laravel.com/docs/7.x/)
 * [Fórum do Laravel](https://laracasts.com/discuss)
